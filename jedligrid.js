@@ -195,6 +195,23 @@ class jedliGrid {
                         element.setAttribute("jedli-grid-index", index);
                     })
                 }
+                else {
+                    // If no elements has been found and category is 'row' reset index
+                    if (category === 'row') {
+                        // Reset index for right target (head/body)
+                        switch (singleTarget) {
+                            case 'head':
+                                this.state.nextIndexRowHead = 0;
+                                this.state.lastIndexRowHead = -1;
+                                break;
+
+                            case 'body':
+                                this.state.nextIndexRowBody = 0;
+                                this.state.lastIndexRowBody = -1;
+                                break;
+                        }
+                    }
+                }
             });
         }
     }
@@ -233,18 +250,22 @@ class jedliGrid {
     // customParams = object
     // Allows to add custom params to specified row
     async addCol(amount = 1, target = ['head', 'body'], rowIndex = 0, content = "", customParams = {}) {
-        const keys = target.keys;
         // Loop through targets and add to all targets
-        if (keys) {
+        if (target.length > 0) {
             // Loop whole adding function, depends of specified 'amount' number
             for (let i = 0; i < amount; i++) {
-
                 target.forEach(element => {
                     // Find row with specified index
                     let row = this.structure[element].querySelector(`[data-jedli-grid='row'][jedli-grid-index='${rowIndex}']`);
                     if (row) {
                         // Create html element for col
-                        let col = document.createElement("td");
+                        // th for head and td for body
+                        let col;
+                        if (element === 'head') {
+                            col = document.createElement("th");
+                        } else {
+                            col = document.createElement('td');
+                        }
 
                         // Add specific attributes
                         col.setAttribute("data-jedli-grid", "col");
@@ -263,6 +284,10 @@ class jedliGrid {
                             });
                         }
 
+                        // Add event listener on col click
+                        col.addEventListener('click', () => {
+                            this.eventColClick(col);
+                        })
                         // Append to specified place in dom
                         row.appendChild(col);
                     }
@@ -284,7 +309,10 @@ class jedliGrid {
 
     // customParams = object
     // Allows to add custom params to specified row
-    async addRow(amount = 1, target = ['head', 'body'], customParams = {}) {
+
+    // content = object
+    // Create cols for all elements in array with custom parameters
+    async addRow(amount = 1, target = ['head', 'body'], customParams = {}, content = {}) {
         const keys = target.keys;
         // Loop through targets and add to all targets
         if (keys) {
@@ -308,11 +336,85 @@ class jedliGrid {
                         });
                     }
 
+                    // Add event listener on row click
+                    row.addEventListener('click', () => {
+                        this.eventRowClick(row);
+                    })
+
                     // Append to specified place in dom
                     this.structure[element].appendChild(row);
+
+                    // Create columns with content if content parameter is specified
+                    let contentKeys = Object.keys(content);
+                    if (contentKeys.length > 0) {
+                        // Get index of this row
+                        let index = row.getAttribute("jedli-grid-index");
+                        // Loop through object with content
+                        contentKeys.forEach(contentKey => {
+                            // Get right element from content object
+                            let contentElement = content[contentKey];
+
+                            // Add col to this row
+                            console.log(index);
+                            this.addCol(1, [element], index, contentElement['content'], contentElement['params']);
+                        });
+                    }
                 });
             }
         }
+    }
+
+    // Return content of element, co
+    // @Params
+
+    // element = DOM element 
+    // Element from which content will be taken
+
+    // @Return
+    // content of element
+    // simple content or object of contents if element is row
+    getContent(element) {
+        // Check what type is element (tag name)
+        const tagName = element.tagName;
+        // Variable for content
+        let content;
+
+        // TODO: Get content function
+        switch (tagName) {
+            // If element is col (th or td), get whole inner html
+            case 'TD':
+                content = element.innerHTML;
+                break;
+
+            case 'TH':
+                content = element.innerHTML;
+                break;
+
+            // If element is row, return object with content of all cols inside
+            case 'TR':
+                // Get all cols inside
+                const colsInside = element.querySelectorAll("[data-jedli-grid='col']");
+                // If there is any coll, loop through them, if not return null
+                if (colsInside.length > 0) {
+                    // Create object structure for content
+                    content = {};
+                    colsInside.forEach(singleCol => {
+                        // Add content of every col into object
+                        let colContent = this.getContent(singleCol);
+
+                        // Name of col that will be in content object
+                        let colName = `col-${singleCol.getAttribute('jedli-grid-index')}`;
+
+                        // Add content of this col to 'content' object that will be returned with all cols
+                        content[colName] = colContent
+                    });
+                }
+                else {
+                    content = null;
+                }
+        }
+
+        return content;
     }
 
     // Delete row
@@ -335,8 +437,8 @@ class jedliGrid {
     // target = array, can contain 'head', 'body' or both
     // Specified where to find col, by default to both head and body
 
-    async deleteCol(index, target = []) {
-        this.deleteElement('col', index, target);
+    async deleteCol(index, target = [], indexOfParent) {
+        this.deleteElement('col', index, target, indexOfParent);
     }
 
     // Functon to delet element row/col
@@ -350,15 +452,29 @@ class jedliGrid {
     // target = array, can contain 'head', 'body' or both
     // Specified where to find element, by default to both head and body
 
-    async deleteElement(category, index, indexOfParent, target = []) {
+    // indexOfParent = int/string
+    // Index of parent where element should be find
+
+    async deleteElement(category, index, target = [], indexOfParent) {
         // Find right element in right target
         const keys = target.keys;
         // Loop through targets and add to all targets
         if (keys) {
             target.forEach(singleTarget => {
-                // Find right row
-                let element = this.structure[singleTarget].querySelector(`[data-jedli-grid='${category}'][jedli-grid-index='${index}']`);
-                // Check if row exists
+                // Find right element
+                let element;
+                switch (category) {
+                    case 'row':
+                        element = this.structure[singleTarget].querySelector(`[data-jedli-grid='${category}'][jedli-grid-index='${index}']`);
+                        break;
+
+                    case 'col':
+                        // Find element in row
+                        element = this.structure[singleTarget].querySelector(`[data-jedli-grid='row'][jedli-grid-index='${indexOfParent}']`).querySelector(`[data-jedli-grid='${category}'][jedli-grid-index='${index}']`);
+                        break;
+                }
+
+                // Check if element exists
                 if (element) {
                     // If row has been found, remove it
                     element.remove();
@@ -372,8 +488,81 @@ class jedliGrid {
             });
         }
     }
-    // EVENTS
 
+    // FUNCTIONS TO CLEAR STRUCTURE 
+
+    // Clear all elements in specified category, by default both head and body
+
+    // @Params:
+    // target = array, can contain 'head', 'body' or both
+    // Specified which part should be cleared
+
+    // type = string (by default 'row')
+    // Specified what elements should be removed, columns or rows
+    async clear(target = ['head', 'body'], type = 'row') {
+        const keys = target.keys;
+        // Loop through targets and clear all targets
+        if (keys) {
+            target.forEach(singleTarget => {
+                // Remove all rows from specified target
+                let elements = this.structure[singleTarget].querySelectorAll(`[data-jedli-grid='${type}']`);
+                // Loop through all elements
+                elements.forEach(singleElement => {
+                    singleElement.remove();
+                });
+
+                // If type was 'row', reset index of right target (head/body)
+                if (type === 'row') {
+                    this.updateIndex('row', [singleTarget]);
+                }
+            });
+        }
+    }
+
+
+    // Clear all elements in head
+
+    // @Params:
+    // none
+    async clearHead() {
+        this.clear(['head']);
+    }
+
+    // Clear all elements in body
+
+    // @Params:
+    // none
+    async clearBody() {
+        this.clear(['body']);
+    }
+
+    // Get root element of grid
+    // @Params: none
+
+    // Return: root element
+    getRoot() {
+        return this.structure.root;
+    }
+
+
+    // Get head element of grid
+    // @Params: none
+
+    // Return: head element
+    getHead() {
+        return this.structure.head;
+    }
+
+    // Get body element of grid
+    // @Params: none
+
+    // Return: body element
+    getBody() {
+        return this.structure.body;
+    }
+
+
+    // EVENTS
     eventAfterInit() {
         const eventAfterInit = new CustomEvent(
             'afterInit',
@@ -384,6 +573,37 @@ class jedliGrid {
         )
 
         this.item.dispatchEvent(eventAfterInit);
+    }
+
+    eventRowClick(element) {
+        const eventRowClick = new CustomEvent(
+            'rowClick',
+            {
+                detail: {
+                    clickedElement: element
+                },
+                bubbles: false,
+                cancelable: false,
+            }
+        )
+
+        this.item.dispatchEvent(eventRowClick);
+    }
+
+
+    eventColClick(element) {
+        const eventColClick = new CustomEvent(
+            'colClick',
+            {
+                detail: {
+                    clickedElement: element
+                },
+                bubbles: false,
+                cancelable: false,
+            }
+        )
+
+        this.item.dispatchEvent(eventColClick);
     }
 };
 

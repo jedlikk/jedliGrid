@@ -14,7 +14,31 @@
     <div data-item="grid">
 
     </div>
-    <button data-action='delete-row'>Delete row</button>
+    <div style="display: flex; flex-wrap: wrap;">
+        <button data-action='delete-row'>Delete row</button>
+        <button data-action='delete-col'>Delete col</button>
+
+        <button data-action='clear-all'>Clear all</button>
+        <button data-action='clear-head'>Clear head</button>
+        <button data-action='clear-body'>Clear body</button>
+        <button data-action='get-root'>Get root</button>
+        <button data-action='get-head'>Get head</button>
+        <button data-action='get-body'>Get body</button>
+        <button data-action='get-content'>Get content</button>
+
+    </div>
+
+    <!-- <form data-action="update-content" style="display:flex; flex-direction: column;">
+        Type: 'row' / 'col'
+        <input type="text" name="type">
+        Target 'head' / 'body'
+        <input type="text" name="target">
+        Content:
+        <input type="text" name="text">
+        <button type="submit">Ok</button>
+    </form> -->
+
+
 </body>
 
 <!-- Load jedligrid -->
