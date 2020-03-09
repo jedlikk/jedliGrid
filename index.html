@@ -6,27 +6,153 @@
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400&subset=latin-ext" rel="stylesheet">
 
-    <link rel="stylesheet" href="jedligrid.css">
+    <link rel="stylesheet" href="demo.css">
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126822589-3"></script>
 </head>
 
 <body>
-    <div data-item="grid">
+    <section class="section section-hero">
+        <h1 class="page-title">jedliGrid</h1>
+        <div class="underline">
+            <span class="line line-1"></span>
+            <span class="line line-2"></span>
+            <span class="line line-3"></span>
+            <span class="line line-4"></span>
+            <span class="line line-5"></span>
+            <span class="line line-6"></span>
+            <span class="line line-7"></span>
+            <span class="line line-8"></span>
+        </div>
+        <span class="page-subtitle text-alfa">js library to create and manage tables</span>
+    </section>
+    <article class="section section-article">
+        <div class="section-container">
+            <h2 class="section-title title-underline-delta">What is jedliGrid?</h2>
+            <div class="section-description text-beta">
+                <p>jedliGrid is lightweight, easy to use, pure (vanilla) JavaScript library to show and manage data in
+                    tables.</p>
+            </div>
+        </div>
+    </article>
+    <article class="section section-article">
+        <div class="section-container">
+            <h2 class="section-title title-underline-theta">Compatibility</h2>
+            <div class="section-description text-beta">
+                <p>jedliGrid is made with functionality of ES6 like async/await, i haven't tested it yet on non
+                    'present' browsers, but with some transpiler (like Babel) it should work on older browsers as well
+                </p>
+            </div>
+        </div>
+    </article>
+    <article id="whats-new" class="section bg-alfa-alternative section-new">
+        <div class="section-container">
+            <h2 class="section-title color-important weight-regular">What's new?</h2>
+            <span class="section-subtitle text-epsilon weight-regular">v. 1.0.0</span>
+            <div class="section-description text-beta">
+                <ul>
+                    <li>Actually everything. Brand new library. Cheers!</li>
+                </ul>
+            </div>
+            <!-- <br> -->
+            <!-- <br> -->
+            <!-- <span class="section-subtitle text-epsilon weight-regular">Previous update:</span>
+            <div class="section-description text-beta">
+                <ul>
+                    <li>Added functionality to filter slides, show all or only from wanted category, with option to
+                        change category to show
+                        <a href="#filtering" title="Go to filtering">See example here</a>
+                    </li>
+                    <li>Added events 'dragStart', 'dragEnd'</li>
+                    <li>Added functionality to keep dragging slider when mouse is outside slider box</li>
+                    <li>Fixed bug when after drag there is no visible slides. Slider will now reset to first/last slide
+                    </li>
+                    <li>Fixed bug with dragging, and blocking of slider when slider was at start/end with infinite
+                        option set to false</li>
+                </ul>
+            </div> -->
+        </div>
+    </article>
+    <article class="section section-article bg-alfa-alternative">
+        <div class="section-container">
+            <h2 class="section-title title-underline-eta">Features soon:</h2>
+            <div class="section-description text-beta">
+                <ul>
+                    <li>Interactive demo</li>
+                    <li>Full documentation</li>
+                </ul>
+            </div>
+        </div>
+    </article>
+    <article id="how-to-use" class="section section-article section-how-to">
+        <div class="section-container">
+            <h2 class="section-title title-underline-eta">How to use:</h2>
+            <div class="section-description text-beta">
+                <h3 class="text-epsilon">Install via npm</h3>
+                <p>"npm install jedligrid"</p>
+                <a href="https://www.npmjs.com/package/jedligrid" target="_blank" title="Go to npm jedligrid">jedliGrid
+                    at NPM</a>
+                <p>Import library</p>
+                <!-- <p>import jedliGrid from 'jedliGrid/src-webpack/jedlislider.js'</p> -->
+                <br>
+                <h3 class="text-epsilon title-underline-gamma">Initialization</h3>
+                <p>Simple html structure</p>
+                <div class="code-snippet">
+                    <pre>
+                        <code>
+&lt;div data-item="grid"&gt;
+&lt;/div&gt;
+                        </code>
+                    </pre>
+                </div>
+                <p>Simple initialization</p>
+                <div class="code-snippet">
+                    <pre>
+                                    <code>
+let grid = new jedliGrid(document.querySelector("[data-item='grid']"));
+                                    </code>
+                                </pre>
+                </div>
+            </div>
+        </div>
+    </article>
 
-    </div>
-    <div style="display: flex; flex-wrap: wrap;">
-        <button data-action='delete-row'>Delete row</button>
-        <button data-action='delete-col'>Delete col</button>
 
-        <button data-action='clear-all'>Clear all</button>
-        <button data-action='clear-head'>Clear head</button>
-        <button data-action='clear-body'>Clear body</button>
-        <button data-action='get-root'>Get root</button>
-        <button data-action='get-head'>Get head</button>
-        <button data-action='get-body'>Get body</button>
-        <button data-action='get-content'>Get content</button>
+    <!-- <section id="examples" class="section section-examples">
+        <div class="section-container">
+            <h2 class="section-title">Playground:</h2>
+            <br>
+            <br>
+            <button class="example-slider-nav-button" data-action='init-grid'>init grid</button>
+            <div class="console" data-item="grid-console">
+                Here will be the messages of what's going on, everything can also be seen in console
+            </div>
+            <div data-item="grid">
 
-    </div>
+            </div>
+            <div style="display: none" data-item="playground-options">
+                <h3 class="text-beta weight-regular color-important">Options:</h3>
+                <h3 class="text-beta weight-regular">Add row:</h3>
+                <p class="text-beta weight-regular">async addRow(amount = int, target =[], customParams = {}, content =
+                    {})<p>
+                        <form action="" data-action='add-row'>
+                            <input type="number" name="amount" placeholder="amount">
+                            <input type="text" name="target" placeholder="target ['head'] / ['body'] / ['head','body']">
+                            <input type="text" name="customParams" placeholder="customParams">
+                            <input type="text" name="content" placeholder="content">
+                            <div class="button-box">
+                                <button type="submit" class="example-slider-nav-button" data-action='init-grid'>add
+                                    row</button>
+                            </div>
+                        </form>
+                        <button class="example-slider-nav-button" data-action='init-grid'>add col</button>
+                        <button class="example-slider-nav-button" data-action='init-grid'>init grid</button>
+
+            </div>
+        </div>
+    </section> -->
+
 
     <!-- <form data-action="update-content" style="display:flex; flex-direction: column;">
         Type: 'row' / 'col'
@@ -37,6 +163,140 @@
         <input type="text" name="text">
         <button type="submit">Ok</button>
     </form> -->
+
+    <article id="options" class="section section-article section-options bg-alfa-alternative">
+        <div class="section-container">
+            <h2 class="section-title title-underline-delta">Functions:</h2>
+            <div class="section-description text-beta">
+                <h3 class="text-beta weight-regular color-important">async addRow(amount , target, customParams,
+                    content)</h3>
+                <span class="text-beta weight-regular">Add row to specified place in grid (head/body)</span>
+                <span class="text-beta weight-regular">params:</span>
+                <ul>
+                    <li> amount = int
+                        How many rows will be added, by default one</li>
+                    <li>target = array, can contain 'head', 'body' or both
+                        Specified where row will be added, by default to both head and body ['head', 'body']</li>
+                    <li>customParams = object
+                        Allows to add custom params to specified row</li>
+                    <li>content = object
+                        Create cols for all elements in array with custom parameters</li>
+                </ul>
+                <span class="text-beta weight-regular">example of content object that will be properly transformed to
+                    columns:</span>
+                <div class="code-snippet">
+                    <pre>
+                            <code>
+let contentObject = {
+    element1: {
+        content: 'content col 1',
+        params: {
+            customParam1: "Example 1",
+            customParam2: "Example 2"
+        }
+    },
+    element2: {
+        content: 'content col 2',
+        params: {
+            customParam1: "Example 1",
+            customParam2: "Example 2"
+        }
+    }
+}
+                            </code>
+                        </pre>
+                </div>
+                <br>
+                <h3 class="text-beta weight-regular color-important">async addCol(amount, target, rowIndex, content,
+                    customParams)</h3>
+                <span class="text-beta weight-regular">Add col to specified row</span>
+                <span class="text-beta weight-regular">params:</span>
+                <ul>
+                    <li> amount = int
+                        <br>
+                        How many cols will be added, by default one</li>
+                    <li> target = array of strings
+                        <br>
+                        Specified where this row is, head or body</li>
+                    <li> rowIndex = int/string (default 0)
+                        <br>
+                        Specified index of row where col will be added</li>
+                    <li> content = string/html
+                        <br>
+                        Contains what will be added to col</li>
+                    <li> customParams = object
+                        <br>
+                        Allows to add custom params to specified row</li>
+                </ul>
+
+                <br>
+                <h3 class="text-beta weight-regular color-important">async addContent(element, content, position)</h3>
+                <span class="text-beta weight-regular">Add content to specified element (col, or div; not row!)</span>
+                <span class="text-beta weight-regular">params:</span>
+                <ul>
+                    <li> element = DOM element
+                        <br>
+                        Element to add content</li>
+                    <li> content = string
+                        <br>
+                        Content that will be inserted into element</li>
+                    <li> rowIndex = int/string (default 0)
+                        <br>
+                        Specified index of row where col will be added</li>
+                    <li> type = string
+                        <br>
+                        Specified place where content will be added
+                        Acceptable values:<br>
+                        - beforebegin<br>
+                        - afterbegin <br>
+                        - beforeend (default value)<br>
+                        - afterend</li>
+                </ul>
+
+                <br>
+                <h3 class="text-beta weight-regular color-important">getContent(element)</h3>
+                <span class="text-beta weight-regular">Get content of specified element. innerHTML if its col, and
+                    object if its row</span>
+                <span class="text-beta weight-regular">params:</span>
+                <ul>
+                    <li> element
+                        DOM reference</li>
+                </ul>
+
+                <br><br>
+                MORE SOON.. WHOLE DOCUMENTATION CAN BE FOUND IN JEDLIGRID.JS AS COMMENTS
+                <br>
+                Full list of functions:
+                List of functions
+
+                init()<br>
+                initRoot()<br>
+                initHead()<br>
+                initBody()<br>
+                initDOM()<br>
+                setIndex()<br>
+                updateIndex()<br>
+                addContent()<br>
+                getContent()<br>
+                addCol()<br>
+                addRow()<br>
+                deleteElement()<br>
+                deleteRow()<br>
+                deleteCol()<br>
+                clear()<br>
+                clearHead()<br>
+                clearBody()<br>
+                getRoot()<br>
+                getHead()<br>
+                getBody()<br>
+
+                Events:<br>
+                afterInit<br>
+                rowClick<br>
+                colClick
+            </div>
+        </div>
+    </article>
 
 
 </body>

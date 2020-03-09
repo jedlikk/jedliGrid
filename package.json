@@ -1,0 +1,27 @@
+{
+    "name": "jedligrid",
+    "version": "0.0.1",
+    "description": "lightweight, easy to use, pure (vanilla) JavaScript library to show and manage data in tables",
+    "main": "jedlislider.js",
+    "scripts": {
+        "test": "test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/jedlikk/jedliSlider.git"
+    },
+    "keywords": [
+        "grid",
+        "vanilla js",
+        "data managment",
+        "jedlikk",
+        "jedligrid",
+        "jedli"
+    ],
+    "author": "Bartłomiej Jedlikowski",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/jedlikk/jedliGrid/issues"
+    },
+    "homepage": "https://github.com/jedlikk/jedliGrid"
+}

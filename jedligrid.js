@@ -11,7 +11,7 @@ class jedliGrid {
 
         // Default options
         this.defaultOptions = {
-            noOfColumns: 2,
+            // noOfColumns: 2,
         }
 
         // Set options to default
@@ -238,6 +238,8 @@ class jedliGrid {
     // Add column 
     // @Params:
 
+    // amount = int
+    // How many cols will be added, by default one
     // target = array of strings
     // Specified where this row is, head or body
 
@@ -304,8 +306,8 @@ class jedliGrid {
     // amount = int
     // How many rows will be added, by default one
 
-    // target = array, can contain 'head', 'body' or both
-    // Specified where col be added, by default to both head and body
+    // target = array of strings, can contain 'head', 'body' or both
+    // Specified where row will be added, by default to both head and body
 
     // customParams = object
     // Allows to add custom params to specified row
