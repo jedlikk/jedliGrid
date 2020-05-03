@@ -1,6 +1,6 @@
 # jedliSlider
 
-![](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![](https://img.shields.io/badge/version-1.1.1-blue.svg)
 
 ### DEMO page
 [DEMO](http://jedlikk.github.io/jedliGrid/)
@@ -14,8 +14,8 @@ jedliGrid is lightweight, easy to use, pure (vanilla) JavaScript library to show
 jedliGrid is made with functionality of ES6 like async/await, i haven't tested it yet on non 'present' browsers, but with some transpiler (like Babel) it should work on older browsers as well
 
 ## What's new?
-### v. 1.0.0
-- Actually everything. Brand new library. Cheers!
+### v. 1.1.1
+- Added function destroy()
 
 <!-- ### Previous update
 - Added functionality to filter slides, show all or only from wanted category, with option to
@@ -25,11 +25,6 @@ jedliGrid is made with functionality of ES6 like async/await, i haven't tested i
 - Fixed bug when after drag there is no visible slides. Slider will now reset to first/last slide
 - Fixed bug with dragging, and blocking of slider when slider was at start/end with infinite
     option set to fals -->
-
-### Features soon:
-
-- Interactive demo
-- Full documentation
 
 ## How to use
 
@@ -79,6 +74,7 @@ element.addEventListener('colClick', event => {
 - deleteElement()
 - deleteRow()
 - deleteCol()
+- destroy()
 - clear()
 - clearHead()
 - clearBody()

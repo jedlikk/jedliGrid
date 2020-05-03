@@ -49,10 +49,10 @@
     <article id="whats-new" class="section bg-alfa-alternative section-new">
         <div class="section-container">
             <h2 class="section-title color-important weight-regular">What's new?</h2>
-            <span class="section-subtitle text-epsilon weight-regular">v. 1.0.0</span>
+            <span class="section-subtitle text-epsilon weight-regular">v. 1.1.1</span>
             <div class="section-description text-beta">
                 <ul>
-                    <li>Actually everything. Brand new library. Cheers!</li>
+                    <li>Added function destroy()</li>
                 </ul>
             </div>
             <!-- <br> -->
@@ -74,7 +74,7 @@
             </div> -->
         </div>
     </article>
-    <article class="section section-article bg-alfa-alternative">
+    <!-- <article class="section section-article bg-alfa-alternative">
         <div class="section-container">
             <h2 class="section-title title-underline-eta">Features soon:</h2>
             <div class="section-description text-beta">
@@ -84,7 +84,7 @@
                 </ul>
             </div>
         </div>
-    </article>
+    </article> -->
     <article id="how-to-use" class="section section-article section-how-to">
         <div class="section-container">
             <h2 class="section-title title-underline-eta">How to use:</h2>
@@ -118,7 +118,6 @@ let grid = new jedliGrid(document.querySelector("[data-item='grid']"));
         </div>
     </article>
 
-
     <!-- <section id="examples" class="section section-examples">
         <div class="section-container">
             <h2 class="section-title">Playground:</h2>
@@ -151,7 +150,9 @@ let grid = new jedliGrid(document.querySelector("[data-item='grid']"));
 
             </div>
         </div>
-    </section> -->
+    </section>
+
+    <button data-action="delete">Delete boi</button> -->
 
 
     <!-- <form data-action="update-content" style="display:flex; flex-direction: column;">
@@ -267,7 +268,7 @@ let contentObject = {
                 MORE SOON.. WHOLE DOCUMENTATION CAN BE FOUND IN JEDLIGRID.JS AS COMMENTS
                 <br>
                 Full list of functions:
-                List of functions
+                <br>
 
                 init()<br>
                 initRoot()<br>
@@ -283,6 +284,7 @@ let contentObject = {
                 deleteElement()<br>
                 deleteRow()<br>
                 deleteCol()<br>
+                destroy()<br>
                 clear()<br>
                 clearHead()<br>
                 clearBody()<br>

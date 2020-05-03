@@ -48,6 +48,13 @@ class jedliGrid {
         this.init();
     }
 
+
+    // TODO: creating rows from json
+    // let files = Object.keys(fileList);
+    // files.forEach(singleKey => {
+    //     sigFilesGrid.addRow(1, ["body"], {}, fileList[singleKey]);
+    // });
+
     // Default init function
     init() {
         // On init create structure
@@ -536,6 +543,12 @@ class jedliGrid {
     // none
     async clearBody() {
         this.clear(['body']);
+    }
+
+    // Destroy whole instance and structure
+    async destroy() {
+        // Clear structure
+        this.item.innerHTML = "";
     }
 
     // Get root element of grid
