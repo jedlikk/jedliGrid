@@ -1,6 +1,6 @@
 # jedliSlider
 
-![](https://img.shields.io/badge/version-1.1.1-blue.svg)
+![](https://img.shields.io/badge/version-1.2.1-blue.svg)
 
 ### DEMO page
 [DEMO](http://jedlikk.github.io/jedliGrid/)
@@ -14,8 +14,8 @@ jedliGrid is lightweight, easy to use, pure (vanilla) JavaScript library to show
 jedliGrid is made with functionality of ES6 like async/await, i haven't tested it yet on non 'present' browsers, but with some transpiler (like Babel) it should work on older browsers as well
 
 ## What's new?
-### v. 1.1.1
-- Added function destroy()
+### v. 1.2.1
+- Added function update() and updateCol()
 
 <!-- ### Previous update
 - Added functionality to filter slides, show all or only from wanted category, with option to

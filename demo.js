@@ -13,12 +13,29 @@ document.querySelector("[data-action='init-grid']").addEventListener('click', ()
     grid.addEventListener('afterInit', () => {
         console.log("afterInit");
         gridInit.addRow(1, ['body', 'head'] );
-        console.log(gridInit.structure.root);
+        let contentJson = {
+            test1: {
+                content: "test123",
+                params: {
+
+                }
+            },
+            test2: {
+                content: "12312312",
+                params: {
+
+                }
+            }
+        }
+        gridInit.addRow(1, ['body', 'head'], {}, contentJson );
+
 
         document.querySelector("[data-action='delete']").addEventListener('click', () => {
-            gridInit.destroy().then(() => {
-                console.log(gridInit)
-            })
+            gridInit.updateCol(1,0, ['body'], "ziooom" );
+
+            // gridInit.destroy().then(() => {
+            //     // gridInit.addCol(1, ['body', 'head'] );
+            // })
         })
     })
 

@@ -321,6 +321,21 @@ class jedliGrid {
 
     // content = object
     // Create cols for all elements in array with custom parameters
+    // How json should look like:
+    // let contentJson = {
+    //     col1: {
+    //         content: "your content here",
+    //         params: {
+    //                 class: 'yourClass'
+    //         }
+    //     },
+    //     col2: {
+    //         content: "12312312",
+    //         params: {
+    //                 class: 'yourClass'
+    //         }
+    //     }
+    // }
     async addRow(amount = 1, target = ['head', 'body'], customParams = {}, content = {}) {
         const keys = target.keys;
         // Loop through targets and add to all targets
@@ -364,7 +379,6 @@ class jedliGrid {
                             let contentElement = content[contentKey];
 
                             // Add col to this row
-                            console.log(index);
                             this.addCol(1, [element], index, contentElement['content'], contentElement['params']);
                         });
                     }
@@ -493,6 +507,62 @@ class jedliGrid {
                 }
                 else {
                     console.error("jedliGrid ERROR! Element not found in function 'deleteElement() (Function deleteElement() is used by deleteRow() and deleteCol()'")
+                }
+            });
+        }
+    }
+
+    // FUNCTIONS TO UPDATE STRUCTURE 
+    // @Params:
+    // element = dom instance
+    // Element which should have updated content
+
+    // content = string
+    // New content of element
+
+    async update(element, content) {
+        // Clear old structure
+        element.innerHTML = "";
+
+        // Add new
+        element.insertAdjacentHTML('beforeend', content);
+    }
+
+    // Update col
+    // @Params:
+    // rowIndex = string/int
+    // Index of row -> parent of col
+
+    // colIndex = string/int
+    // Index of col to update
+
+    // target = array, can contain 'head', 'body' or both
+    // Specified where find this row/col
+
+    // content = string
+    // New content of element
+
+    async updateCol(rowIndex, colIndex, target = ['head', 'body'], content = "") {
+        const keys = target.keys;
+        // Loop through targets to find row and col
+        if (keys) {
+            target.forEach(singleTarget => {
+                // Find row
+                let row = this.structure[singleTarget].querySelector(`[data-jedli-grid='row'][jedli-grid-index="${rowIndex}"]`);
+                if(row) {
+                    // Find right col
+                    let col = row.querySelector(`[data-jedli-grid='col'][jedli-grid-index="${colIndex}"]`);
+                    console.log(`[data-jedli-grid='col'][jedli-grid-index="${colIndex}"]`);
+                    if(col) {
+                        // Init function to update
+                        this.update(col, content);
+                    }
+                    else {
+                        console.error("jedliGrid: Col to update not found")
+                    }
+                }
+                else {
+                    console.error("jedliGrid: Row to update not found")
                 }
             });
         }
